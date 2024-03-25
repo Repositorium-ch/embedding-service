@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare two strings</title>
+</head>
+<body>
+    <textarea id="sentenceArea1" placeholder="Paste your first sentence here..."></textarea>
+    <textarea id="sentenceArea2" placeholder="And your second sentence here..."></textarea>
+    <button id="sentenceButton">Compare the sentences</button>
+    <div id="similarityScore"></div>
+
+    <script>
+    // Calculate the cosine similarity between two multidimensional vectors
+    function cosineSimilarity(vector1, vector2) {
+        let dotProduct = 0;
+        let magnitude1 = 0;
+        let magnitude2 = 0;
+        for (let i = 0; i < vector1.length; i++) {
+            dotProduct += vector1[i] * vector2[i];
+            magnitude1 += Math.pow(vector1[i], 2);
+            magnitude2 += Math.pow(vector2[i], 2);
+        }
+        return dotProduct / (Math.sqrt(magnitude1) * Math.sqrt(magnitude2));
+    }
+    
+
+        let vectorA = []
+        let vectorB = []
+
+        document.getElementById('sentenceButton').addEventListener('click', function() {
+            var sentence1 = document.getElementById('sentenceArea1').value;
+            var sentence2 = document.getElementById('sentenceArea2').value;
+            var sentenceData = JSON.stringify({ strings: [sentence1, sentence2] });
+
+            fetch('http://localhost:3000/api/embed', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: sentenceData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Data: ", data);
+                vectorA = data.list[0]
+                vectorB = data.list[1]
+                console.log("Vector A: ", vectorA);
+                console.log("Vector B: ", vectorB);
+                var similarityScore = cosineSimilarity(vectorA, vectorB);
+                console.log("Similarity Score: ", similarityScore);
+                document.getElementById('similarityScore').innerText = 'Similarity Score: ' + similarityScore;
+            });
+
+        });
+    </script>
+</body>
+</html>
