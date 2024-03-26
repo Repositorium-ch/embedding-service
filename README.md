@@ -1,5 +1,5 @@
 # Minimal Embedding Service
-This is a minimal embedding service that allows you to embed any content in an iframe. It is built using Express.js transformers.js
+This is a minimal embedding service that allows you to embed any content. It is built using Express.js transformers.js
 
 ## Installation
 1. Clone the repository
@@ -17,4 +17,4 @@ To embed a content, make a POST request to `http://localhost:3000/embed` with th
 You can also specify the model to use by setting the `MODEL` environment variable. The default model is `distilbert-base-uncased`.
 It has to be a ONNX model, compatible with transformers.js.
 
-There is also a simple client-example served at the root of the server. You can access it by going to `http://localhost:3000/`
+**There is also a simple client-example served at the root of the server. You can access it by going to `http://localhost:3000/`**
