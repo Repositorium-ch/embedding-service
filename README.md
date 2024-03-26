@@ -6,6 +6,7 @@ This is a minimal embedding service that allows you to embed any content. It is 
 2. Run `docker build -t embedding_server .`
 3. Run `docker run -p 3000:3000 -e MODEL='YourModel' embedding_server`
 
+If you do not set a Model in the docker run commmand (for example `docker run -p 3000:3000 embedding_server`) the model `Xenova/all-MiniLM-L6-v2` will be used automatically.
 ## Usage
 To embed a content, make a POST request to `http://localhost:3000/embed` with the following body:
 ```json
