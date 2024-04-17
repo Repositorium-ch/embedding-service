@@ -4,7 +4,9 @@ This is a minimal embedding service that allows you to embed any content in an i
 ## Installation
 1. Clone the repository
 2. Run `docker build -t embedding_server .`
-3. Run `docker run -p 3000:3000 -e MODEL='YourModel' embedding_server`
+3. Run `docker run -v $(pwd)/volume:/usr/src/app/node_modules/@xenova/transformers/.cache -p 3000:3000 -e MODEL='YourModel' embedding_server`
+
+Example: `docker run -v $(pwd)/volume:/usr/src/app/node_modules/@xenova/transformers/.cache -p 3000:3000 -e MODEL='Snowflake/snowflake-arctic-embed-xs' embedding_server`
 
 ## Usage
 To embed a content, make a POST request to `http://localhost:3000/embed` with the following body:

@@ -7,6 +7,14 @@ if(!process.env.MODEL) {
     process.env.MODEL = 'Xenova/all-MiniLM-L6-v2'
 }
 
+// Specify a custom location for models (defaults to '/models/').
+env.localModelPath = '/models/';
+// Disable the loading of remote models from the Hugging Face Hub:
+//env.allowRemoteModels = false;
+
+// Set location of .wasm files. Defaults to use a CDN.
+env.backends.onnx.wasm.wasmPaths = '/models/';
+
 const app = express();
 
 // CORS Settings

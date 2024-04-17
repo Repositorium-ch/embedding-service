@@ -44,8 +44,8 @@
             .then(response => response.json())
             .then(data => {
                 console.log("Data: ", data);
-                vectorA = data.list[0]
-                vectorB = data.list[1]
+                vectorA = data.embeddings[0]
+                vectorB = data.embeddings[1]
                 console.log("Vector A: ", vectorA);
                 console.log("Vector B: ", vectorB);
                 var similarityScore = cosineSimilarity(vectorA, vectorB);
