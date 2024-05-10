@@ -10,7 +10,7 @@ Example: `docker run -v $(pwd)/volume:/usr/src/app/node_modules/@xenova/transfor
 
 If you do not set a Model in the docker run commmand (for example `docker run -p 3000:3000 embedding_server`) the model `Xenova/all-MiniLM-L6-v2` will be used automatically.
 ## Usage
-To embed a content, make a POST request to `http://localhost:3000/embed` with the following body:
+To embed a content, make a POST request to `http://localhost:3000/api/embed` with the following body:
 ```json
 {
      "strings": ["sentence 1", "sentence 2", "sentence 3"] 
