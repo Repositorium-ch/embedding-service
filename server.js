@@ -1,5 +1,4 @@
 import express from 'express';
-import { AutoTokenizer } from '@xenova/transformers';
 import { env, pipeline } from '@xenova/transformers';
 import cors from 'cors';
 import crypto from 'crypto';
@@ -64,8 +63,6 @@ pipeline('feature-extraction', process.env.MODEL)
         process.exit(1);
     });
 
-const tokenizer = await AutoTokenizer.from_pretrained(process.env.MODEL);
-
 
 // Create a POST endpoint to receive the audio file
 app.post('/v1/embeddings', async (req, res) => {
@@ -86,24 +83,19 @@ app.post('/v1/embeddings', async (req, res) => {
             return res.status(400).json({ error: 'Invalid input: input should be a string or an array of strings' });
         }
 
-        console.log("Strings: " + strings);
+        console.log("### Received Strings, now computing embeddings...");
+        console.time("Computation Time");
 
         // Compute features
         let output = await extractor(strings, { pooling: 'mean', normalize: true });
 
         output = output.tolist();
 
-        let data = [];
-
-        for (let index = 0; index < output.length; index++) {
-            let element = output[index];
-            let embedding = {
-                "object": "embedding",
-                "index": index,
-                "embedding": element,
-            }
-            data.push(embedding);
-        }
+        let data = output.map((embedding, index) => ({
+            "object": "embedding",
+            "index": index,
+            "embedding": embedding,
+        }));
 
         let response = {
             "object": "list",
@@ -111,8 +103,8 @@ app.post('/v1/embeddings', async (req, res) => {
             "data": data
         }
 
-        // Convert Tensor to JS list
-        //output = output.tolist();
+        console.timeEnd("Computation Time");
+        console.log("### Embedding Request Completed.");
 
         // Send the features back
         res.status(200).json(response);
