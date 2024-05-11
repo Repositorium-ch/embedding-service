@@ -91,10 +91,24 @@ app.post('/v1/embeddings', async (req, res) => {
         // Compute features
         let output = await extractor(strings, { pooling: 'mean', normalize: true });
 
+        output = output.tolist();
+
+        let data = [];
+
+        for (let index = 0; index < output.length; index++) {
+            let element = output[index];
+            let embedding = {
+                "object": "embedding",
+                "index": index,
+                "embedding": element,
+            }
+            data.push(embedding);
+        }
+
         let response = {
             "object": "list",
             "model": process.env.MODEL,
-            "data": output.tolist(),
+            "data": data
         }
 
         // Convert Tensor to JS list
