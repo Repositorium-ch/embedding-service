@@ -12,7 +12,7 @@ If you do not set an API_KEY in the docker run commmand (for example `docker run
 
 If you do not set a Model in the docker run commmand (for example `docker run -p 3000:3000 embedding_server`) the model `Xenova/all-MiniLM-L6-v2` will be used automatically.
 ## Usage
-To embed content, make a POST request to `http://localhost:3000/v1/embedddings` with the following body:
+To embed content, make a POST request to `http://localhost:3000/v1/embeddings` with the following body:
 ```json
 {
   "input": "Your text string goes here"
