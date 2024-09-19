@@ -6,7 +6,7 @@ This is a minimal embedding service that allows you to embed any content. It is 
 2. Run `docker build -t embedding_server .`
 3. Run `docker run -v $(pwd)/volume:/usr/src/app/node_modules/@xenova/transformers/.cache -p 3000:3000 -e MODEL='YourModel' -e API_KEY='YourSuperSecureApiKey' embedding_server`
 
-Example: `docker run -v $(pwd)/volume:/usr/src/app/node_modules/@xenova/transformers/.cache -p 3000:3000 -e MODEL='Snowflake/snowflake-arctic-embed-xs' embedding_server`
+Example: `docker run -v $(pwd)/volume:/usr/src/app/node_modules/@xenova/transformers/.cache -p 3000:3000 -e MODEL='Xenova/multilingual-e5-base' embedding_server`
 
 If you do not set an API_KEY in the docker run commmand (for example `docker run -p 3000:3000 embedding_server`) a random API_KEY will be generated automatically and printed to the console.
 
