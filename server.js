@@ -71,13 +71,11 @@ const loadModelAndConfig = async () => {
 
 // Function to truncate text to MAX_TOKENS with detailed information
 const truncateToMaxTokens = async (text) => {
-    console.log(`Truncating text: "${text.substring(0, 50)}..."`);
-    
+        
     let originalTokenCount, truncatedTokenCount, tokensRemoved;
 
     try {
         const encoded = await tokenizer(text, { truncation: false });
-        console.log('Encoded:', encoded); // Debugging line
 
         // Get the token count from the dimensions of the input_ids tensor
         originalTokenCount = encoded.input_ids.dims[1]; // Since dims is [batch_size, seq_length]
@@ -99,7 +97,6 @@ const truncateToMaxTokens = async (text) => {
 
         console.log('Truncation needed');
         const truncatedEncoded = await tokenizer(text, { truncation: true, maxLength: MAX_TOKENS });
-        console.log('Truncated Encoded:', truncatedEncoded); // Debugging line
 
         truncatedTokenCount = truncatedEncoded.input_ids.dims[1]; // Get the truncated token count
 
