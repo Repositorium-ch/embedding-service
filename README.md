@@ -40,3 +40,6 @@ curl http://localhost:3000/v1/embeddings \
 
 You can also specify the model to use by setting the `MODEL` environment variable. The default model is `Xenova/all-MiniLM-L6-v2`.
 The model has to be a ONNX model, compatible with transformers.js.
+
+### Loading remote models
+Currently loading remote models is disabled by default. To enable it, change line 35 'env.allowRemoteModels = false;' to 'true' in the 'server.js' file. This will allow the server to load models from the Hugging Face model hub.
